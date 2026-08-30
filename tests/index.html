@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI RISSER Web Tester</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        body { font-family: monospace; background: #1e1e1e; color: #d4d4d4; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; height: 95vh; }
+        .header { padding: 10px 0; border-bottom: 1px solid #333; color: #fff; font-size: 20px; font-weight: bold; }
+        .chat-box { flex: 1; padding: 20px 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        
+        .log-line { line-height: 1.4; word-wrap: break-word; }
+        .log-user { color: #569cd6; font-weight: bold; margin-top: 10px; }
+        .log-status { color: #888; }
+        .log-node { color: #4ec9b0; font-weight: bold; margin-top: 10px; }
+        .log-error { color: #f44336; font-weight: bold; }
+        .log-json { background: #2d2d2d; color: #ce9178; padding: 10px; border-radius: 4px; overflow-x: auto; margin: 5px 0; font-size: 13px; }
+        
+        .input-area { padding: 15px 0; border-top: 1px solid #333; display: flex; flex-direction: column; gap: 10px; }
+        .hitl-actions { display: none; gap: 10px; padding: 10px; background: #333; border-radius: 4px; border: 1px solid #555; }
+        .hitl-title { color: #d7ba7d; font-weight: bold; margin-bottom: 5px; }
+        .btn { padding: 8px 16px; font-family: monospace; font-size: 14px; border: none; cursor: pointer; border-radius: 2px; color: white; font-weight: bold; }
+        .btn-approve { background: #007acc; }
+        .btn-reject { background: #d16969; }
+        .btn-subtask { background: #b58900; }
+        .btn:hover { opacity: 0.8; }
+        
+        .input-row { display: flex; gap: 10px; }
+        input { flex: 1; padding: 10px; font-family: monospace; background: #2d2d2d; color: white; border: 1px solid #444; border-radius: 2px; outline: none; }
+        button.send-btn { background: #007acc; color: white; border: none; padding: 0 20px; font-weight: bold; cursor: pointer; font-family: monospace; border-radius: 2px; }
+        button:disabled { background: #555; cursor: not-allowed; }
+        
+        .chart-container { background: white; margin: 10px 0; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">🤖 AI RISSER - Terminal Console</div>
+        <div class="chat-box" id="chat">
+            <div class="log-line">Hệ thống đã sẵn sàng. Hãy nhập yêu cầu của bạn.</div>
+        </div>
+        <div class="input-area">
+            <div class="hitl-actions" id="hitlActions">
+                <div class="hitl-title" id="hitlTitle">⚠️ TẠM DỪNG (HITL)</div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-approve" onclick="sendAction('approve')">Duyệt (APPROVE)</button>
+                    <button class="btn btn-reject" onclick="sendAction('reject')">Từ chối (REJECT)</button>
+                    <button class="btn btn-subtask" id="btnSubtask" onclick="sendAction('subtask')" style="display: none;">Subtask Mới</button>
+                </div>
+            </div>
+            <div class="input-row">
+                <input type="text" id="prompt" placeholder="> Lấy tổng doanh thu quý 3..." onkeypress="if(event.key === 'Enter') send()">
+                <button class="send-btn" id="sendBtn" onclick="send()">Gửi</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chat = document.getElementById('chat');
+        const promptInput = document.getElementById('prompt');
+        const sendBtn = document.getElementById('sendBtn');
+        const hitlActions = document.getElementById('hitlActions');
+        const hitlTitle = document.getElementById('hitlTitle');
+        const btnSubtask = document.getElementById('btnSubtask');
+        
+        let isHitlMode = false;
+        const sessionId = 'html_test_' + Math.random().toString(36).substring(2, 10);
+
+        function scrollToBottom() {
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function appendLog(htmlContent) {
+            const el = document.createElement('div');
+            el.className = 'log-line';
+            el.innerHTML = htmlContent;
+            chat.appendChild(el);
+            scrollToBottom();
+            return el;
+        }
+
+        async function sendAction(action) {
+            hitlActions.style.display = 'none';
+            isHitlMode = false;
+            appendLog(`<div class="log-user">>>> [HITL ACTION]: ${action.toUpperCase()}</div>`);
+            await processRequest(action);
+        }
+
+        async function send() {
+            if (isHitlMode) {
+                alert("Hệ thống đang dừng ở node HITL. Vui lòng chọn hành động bên trên.");
+                return;
+            }
+            const text = promptInput.value.trim();
+            if (!text) return;
+
+            appendLog(`<div class="log-user">>>> USER: ${text}</div>`);
+            promptInput.value = '';
+            await processRequest(text);
+        }
+
+        async function processRequest(payloadText) {
+            promptInput.disabled = true;
+            sendBtn.disabled = true;
+
+            try {
+                const response = await fetch('http://localhost:8090/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: payloadText, thread_id: sessionId })
+                });
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    buffer += decoder.decode(value, { stream: true });
+                    
+                    const lines = buffer.split('\n\n');
+                    buffer = lines.pop(); 
+
+                    for (let line of lines) {
+                        line = line.trim();
+                        if (line.includes('data: ')) {
+                            // Extract the actual JSON data part
+                            const dataStartIndex = line.indexOf('data: ') + 6;
+                            const jsonStr = line.slice(dataStartIndex);
+                            try {
+                                const data = JSON.parse(jsonStr);
+                                
+                                if (data.type === 'status') {
+                                    appendLog(`<span class="log-status">${data.content}</span>`);
+                                } 
+                                else if (data.type === 'node_finish') {
+                                    appendLog(`<div class="log-node">[NODE FINISH]: ${data.node}</div>`);
+                                    
+                                    // Tạo block JSON hiển thị nội dung State
+                                    let cleanData = {...data.data};
+                                    // Ẩn bớt chart_json dài dòng khỏi log console
+                                    if(cleanData.chart_json) {
+                                        cleanData.chart_json = "<Plotly JSON Object - Ẩn bớt để tránh dài>";
+                                    }
+                                    
+                                    const jsonStr = JSON.stringify(cleanData, null, 2);
+                                    appendLog(`<pre class="log-json">${jsonStr}</pre>`);
+                                    
+                                    // Render Plotly nếu có chart_json thực tế
+                                    if (data.data && data.data.chart_json && typeof data.data.chart_json === 'string' && data.data.chart_json.trim() !== "") {
+                                        try {
+                                            const figData = JSON.parse(data.data.chart_json);
+                                            const plotDivId = 'plot-' + Math.random().toString(36).substr(2, 9);
+                                            
+                                            // Tạo container bọc nền trắng cho biểu đồ
+                                            const chartWrapper = document.createElement('div');
+                                            chartWrapper.className = "chart-container";
+                                            chartWrapper.innerHTML = `<div id="${plotDivId}" style="width: 100%; height: 400px;"></div>`;
+                                            chat.appendChild(chartWrapper);
+                                            
+                                            Plotly.newPlot(plotDivId, figData.data, figData.layout);
+                                            scrollToBottom();
+                                        } catch (e) {
+                                            appendLog(`<span class="log-error">Lỗi parse/render Plotly: ${e.message}</span>`);
+                                        }
+                                    }
+                                } 
+                                else if (data.type === 'interrupt') {
+                                    appendLog(`<div class="log-error">⚠️ TẠM DỪNG TẠI: [${data.node}] - CHỜ HITL DUYỆT</div>`);
+                                    
+                                    isHitlMode = true;
+                                    hitlActions.style.display = 'flex';
+                                    hitlTitle.innerText = `⚠️ TẠM DỪNG TẠI: [${data.node}]`;
+                                    
+                                    if (data.node === 'report_hitl') {
+                                        btnSubtask.style.display = 'inline-block';
+                                    } else {
+                                        btnSubtask.style.display = 'none';
+                                    }
+                                    scrollToBottom();
+                                } 
+                                else if (data.type === 'error') {
+                                    appendLog(`<div class="log-error">❌ LỖI HỆ THỐNG: ${data.content}</div>`);
+                                } 
+                                else if (data.type === 'done') {
+                                    if (!isHitlMode) {
+                                        appendLog(`<span class="log-status">✅ HOÀN TẤT PIPELINE.</span>`);
+                                    }
+                                }
+                            } catch(e) {
+                                // Bỏ qua nếu parse JSON bị lỗi
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
+                appendLog(`<span class="log-error">❌ LỖI KẾT NỐI: ${err.message}</span>`);
+            }
+
+            promptInput.disabled = false;
+            sendBtn.disabled = false;
+            if (!isHitlMode) promptInput.focus();
+        }
+    </script>
+</body>
+</html>

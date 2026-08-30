@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: laplaptech_raw
+    database: ai-riser-505908
+    schema: laplaptech_raw
+    tables:
+      - name: raw_brand
+      - name: raw_cpu_model
+      - name: raw_gpu_model
+      - name: raw_laptop_model
+      - name: raw_laptop_benchmark_result
+      - name: raw_user_event_tracking

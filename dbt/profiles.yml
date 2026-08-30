@@ -1,0 +1,12 @@
+laplaptech:
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      keyfile: /opt/airflow/Key/gcp_key.json
+      project: "ai-riser-505908"
+      dataset: laplaptech_staging
+      threads: 4
+      timeout_seconds: 300
+      location: US
+  target: dev

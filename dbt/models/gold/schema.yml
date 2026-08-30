@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: dim_laptops_obt
+    description: "Bảng One Big Table chứa tất cả cấu hình phần cứng laptop, CPU, GPU, thông số màn hình, pin và kết quả benchmark."
+    columns:
+      - name: laptop_model_id
+        description: "ID duy nhất của mẫu laptop"
+      - name: laptop_name
+        description: "Tên đầy đủ của mẫu laptop"
+      - name: laptop_brand
+        description: "Thương hiệu sản xuất laptop"
+      - name: cpu_name
+        description: "Tên vi xử lý CPU"
+      - name: gpu_name
+        description: "Tên card đồ họa GPU"
+      - name: office_battery_result_minutes
+        description: "Thời lượng pin sử dụng tác vụ văn phòng (tính bằng phút)"
+      - name: gaming_battery_result_minutes
+        description: "Thời lượng pin khi chơi game (tính bằng phút)"
+      - name: mobility_score
+        description: "Điểm di động được tính toán dựa trên thời lượng pin và trọng lượng"
+
+  - name: fct_user_event_tracking
+    description: "Bảng Fact ghi nhận tất cả sự kiện tương tác của người dùng trên website (click, pageview, compare). Được phân vùng theo event_date."
+    columns:
+      - name: event_id
+        description: "ID duy nhất của sự kiện"
+      - name: event_name
+        description: "Tên sự kiện (click, pageview, etc)"
+      - name: event_date
+        description: "Ngày xảy ra sự kiện. BẮT BUỘC dùng làm điều kiện lọc (WHERE event_date) để tối ưu truy vấn."
+      - name: laptop_model_id
+        description: "ID của mẫu laptop người dùng tương tác"
+      - name: session_id
+        description: "ID phiên truy cập của người dùng"
+
+  - name: dim_pages
+    description: "Bảng chiều lưu trữ thông tin về các trang web (pages) trên hệ thống."
+    columns:
+      - name: page_key
+        description: "Khóa ngoại duy nhất của trang (FARM_FINGERPRINT từ url)"
+      - name: url
+        description: "Đường dẫn chi tiết URL"
+      - name: page_name
+        description: "Tên trang hoặc tiêu đề bài viết"
+      - name: page_type
+        description: "Phân loại trang (Home, Device Detail, Comparison, Other)"
+
+  - name: dim_devices
+    description: "Bảng chiều chứa thông tin thiết bị và hệ điều hành của người dùng."
+    columns:
+      - name: device_key
+        description: "Khóa ngoại duy nhất thiết bị"
+      - name: os_name
+        description: "Hệ điều hành thiết bị (Windows, iOS, Android, macOS)"
+      - name: device_type
+        description: "Loại thiết bị (Desktop, Mobile, Tablet)"
+
+  - name: dim_sessions
+    description: "Bảng chiều lưu trữ thông tin về phiên truy cập, thời lượng và tỷ lệ thoát."
+    columns:
+      - name: session_id
+        description: "ID phiên truy cập"
+      - name: session_duration_seconds
+        description: "Tổng thời gian phiên truy cập tính bằng giây"
+      - name: total_events
+        description: "Tổng số sự kiện trong phiên"
+      - name: is_bounce_session
+        description: "Phiên có bị bounce (thoát ngay) hay không"

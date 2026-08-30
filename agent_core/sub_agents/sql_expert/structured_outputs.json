@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "sql_query": {
+      "type": "string",
+      "description": "The exact SQL query string to be executed."
+    }
+  },
+  "required": [
+    "sql_query"
+  ]
+}

@@ -1,0 +1,25 @@
+.env
+env.prod
+*.pyc
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+venv/
+.venv/
+
+# Ignore sensitive keys and credential folders
+**/gcp_key.json
+Key/
+
+# Ignore custom rules and skills directory for agents
+.agents/
+.agents/**
+
+# Ignore SDK and Logs
+google-cloud-sdk/
+airflow/logs/
+superset_home/
+qdrant_data/

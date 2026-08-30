@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "needs_deepdive": {
+      "type": "boolean",
+      "description": "True nếu phát hiện bất thường cần đào sâu, False nếu mọi thứ bình thường"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Lý do vì sao quyết định deepdive hay không"
+    },
+    "next_subtask": {
+      "type": "object",
+      "description": "Subtask mới sẽ được chèn vào để chạy tiếp theo. Chỉ có khi needs_deepdive=true",
+      "properties": {
+        "description": { "type": "string", "description": "Tên/Mô tả ngắn của subtask" },
+        "Goal": { "type": "string", "description": "Mục tiêu của subtask này" },
+        "task scope": { "type": "string", "description": "Phạm vi dữ liệu cần query (Metric, Dimension, Timeframe...)" }
+      },
+      "required": ["description", "Goal", "task scope"]
+    }
+  },
+  "required": ["needs_deepdive", "reason"]
+}

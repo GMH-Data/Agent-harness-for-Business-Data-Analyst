@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --color-tertiary-fixed: #cde5ff;
+  --color-background: #f9f9ff;
+  --color-error-container: #ffdad6;
+  --color-on-secondary: #ffffff;
+  --color-on-primary-fixed-variant: #783200;
+  --color-primary-fixed: #ffdbca;
+  --color-surface-container: #ebedfa;
+  --color-on-secondary-fixed: #121c2a;
+  --color-surface-container-high: #e5e8f4;
+  --color-outline-variant: #e0c0b1;
+  --color-inverse-primary: #ffb690;
+  --color-surface-container-low: #f1f3ff;
+  --color-on-primary-fixed: #341100;
+  --color-tertiary-container: #00a2f4;
+  --color-inverse-on-surface: #eef0fc;
+  --color-tertiary-fixed-dim: #93ccff;
+  --color-on-secondary-container: #596373;
+  --color-on-surface-variant: #584237;
+  --color-surface-dim: #d7d9e6;
+  --color-primary-container: #f97316;
+  --color-error: #ba1a1a;
+  --color-on-primary-container: #ffffff;
+  --color-on-tertiary-fixed: #001d32;
+  --color-surface: #f9f9ff;
+  --color-secondary: #555f6f;
+  --color-on-background: #334155;
+  --color-on-error: #ffffff;
+  --color-on-tertiary-fixed-variant: #004b74;
+  --color-secondary-fixed-dim: #bdc7d9;
+  --color-primary-fixed-dim: #ffb690;
+  --color-on-primary: #ffffff;
+  --color-on-secondary-fixed-variant: #3d4756;
+  --color-surface-bright: #f9f9ff;
+  --color-surface-tint: #9d4300;
+  --color-on-surface: #181c24;
+  --color-secondary-container: #d6e0f3;
+  --color-surface-variant: #e0e2ee;
+  --color-on-tertiary-container: #003554;
+  --color-primary: #f97316;
+  --color-inverse-surface: #2d3039;
+  --color-on-tertiary: #ffffff;
+  --color-secondary-fixed: #d9e3f6;
+  --color-on-error-container: #93000a;
+  --color-surface-container-lowest: #ffffff;
+  --color-outline: #8c7164;
+  --color-tertiary: #006398;
+  --color-surface-container-highest: #e0e2ee;
+
+  --radius-DEFAULT: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
+
+  --spacing-gutter: 1rem;
+  --spacing-section-gap: 2rem;
+  --spacing-page-margin: 2.5rem;
+  --spacing-stack-sm: 0.5rem;
+  --spacing-card-padding: 1.5rem;
+  --spacing-stack-md: 1rem;
+
+  --font-headline-lg: "Plus Jakarta Sans", sans-serif;
+  --font-display-lg: "Plus Jakarta Sans", sans-serif;
+  --font-headline-md: "Plus Jakarta Sans", sans-serif;
+  --font-label-sm: "Plus Jakarta Sans", sans-serif;
+  --font-label-md: "Plus Jakarta Sans", sans-serif;
+  --font-headline-lg-mobile: "Plus Jakarta Sans", sans-serif;
+  --font-body-md: "Plus Jakarta Sans", sans-serif;
+  --font-body-lg: "Plus Jakarta Sans", sans-serif;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 1.2;
+  --text-headline-lg--letter-spacing: -0.01em;
+  --text-headline-lg--font-weight: 700;
+
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 1.1;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 700;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 1.3;
+  --text-headline-md--font-weight: 600;
+
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 1.4;
+  --text-label-sm--font-weight: 500;
+
+  --text-label-md: 14px;
+  --text-label-md--line-height: 1.4;
+  --text-label-md--letter-spacing: 0.01em;
+  --text-label-md--font-weight: 600;
+
+  --text-headline-lg-mobile: 28px;
+  --text-headline-lg-mobile--line-height: 1.2;
+  --text-headline-lg-mobile--font-weight: 700;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-body-md--font-weight: 400;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--font-weight: 400;
+}
+
+@layer base {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-dark-bg: rgba(15, 23, 42, 0.85);
+    --warm-gradient: radial-gradient(circle at top right, rgba(249, 115, 22, 0.05), transparent 40%);
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--color-background);
+    background-image: var(--warm-gradient);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.02);
+  }
+
+  .glass-dark-panel {
+    background: var(--glass-dark-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-dark-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.15), transparent 70%);
+    z-index: 0;
+    border-radius: inherit;
+  }
+  
+  .glass-dark-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+}

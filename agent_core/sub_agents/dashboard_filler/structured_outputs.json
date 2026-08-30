@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "chart_type": { "type": "string", "description": "Loại biểu đồ Superset (big_number, line, bar, pie, table, heatmap, etc.)" },
+    "chart_name": { "type": "string", "description": "Tên biểu đồ hiển thị" },
+    "metrics": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Danh sách các metrics cần hiển thị"
+    },
+    "groupby": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Danh sách các cột nhóm (dimensions)"
+    },
+    "time_column": { "type": "string", "description": "Cột thời gian (nếu có)" },
+    "filters": { "type": "string", "description": "Bộ lọc SQL WHERE clause" },
+    "chart_config_extra": { "type": "string", "description": "Cấu hình bổ sung (colors, sort, limit)" }
+  },
+  "required": ["chart_type", "chart_name", "metrics"]
+}

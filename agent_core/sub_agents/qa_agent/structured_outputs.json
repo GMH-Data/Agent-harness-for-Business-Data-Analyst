@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "is_satisfied": {
+      "type": "boolean",
+      "description": "True nếu toàn bộ Report đã trả lời hoàn hảo User Motivation ban đầu. False nếu chưa đủ."
+    },
+    "feedback": {
+      "type": "string",
+      "description": "Lời nhận xét chi tiết về những gì còn thiếu sót so với mục tiêu chính."
+    },
+    "next_subtask": {
+      "type": "object",
+      "description": "Nếu False, hãy định nghĩa 1 subtask mới để tiếp tục khai thác dữ liệu bổ sung. Nếu True, trả về null.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Mô tả subtask mới (Vd: Truy vấn doanh thu tuần 1 để đối chiếu)"
+        },
+        "task scope": {
+          "type": "string",
+          "description": "Phạm vi dữ liệu cần lấy"
+        }
+      }
+    }
+  },
+  "required": ["is_satisfied", "feedback"]
+}

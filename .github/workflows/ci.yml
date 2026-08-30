@@ -1,0 +1,57 @@
+name: GitHub Actions CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-month: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install apache-airflow dbt-bigquery clickhouse-connect pandas pyarrow
+
+    - name: Lint and Verify Airflow DAGs
+      run: |
+        python3 -c "
+        from airflow.models import DagBag
+        db = DagBag(dag_folder='airflow/dags')
+        print('DAGs loaded:', db.dags.keys())
+        if db.import_errors:
+            print('Import Errors:', db.import_errors)
+            exit(1)
+        "
+
+    - name: Verify dbt Models compilation
+      run: |
+        mkdir -p ~/.dbt
+        # Tạo profile giả lập để dbt compile không bị lỗi thiếu profile
+        echo "
+        laplaptech:
+          outputs:
+            dev:
+              type: bigquery
+              method: service-account
+              keyfile: credentials/gcp_key.json
+              project: 'ai-riser-505908'
+              dataset: laplaptech_staging
+              threads: 1
+              timeout_seconds: 300
+              location: US
+          target: dev
+        " > ~/.dbt/profiles.yml
+        # Compile dbt code để kiểm tra cú pháp SQL dbt
+        dbt compile --project-dir dbt/ --profiles-dir ~/.dbt/

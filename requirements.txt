@@ -1,0 +1,26 @@
+# Core dependencies
+clickhouse-connect>=0.7.0
+pandas>=2.0.0
+google-cloud-bigquery>=3.10.0
+dbt-bigquery>=1.5.0
+
+# LLM & Agent Platform
+langgraph>=0.1.0
+langsmith>=0.1.0
+google-genai>=0.1.0
+qdrant-client>=1.7.0
+mcp>=0.1.0
+fastmcp>=0.1.0
+langfuse<3.0.0
+
+# UI & Web
+streamlit>=1.25.0
+
+# Testing & QA
+pytest>=7.0.0
+deepeval>=0.20.0
+python-dotenv>=1.0.0
+plotly>=5.0.0
+kaleido>=0.2.1
+fastapi
+uvicorn

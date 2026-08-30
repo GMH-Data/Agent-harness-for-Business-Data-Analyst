@@ -1,0 +1,291 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="agent_flow" name="Tri-Collection Agent Workflow">
+    <mxGraphModel dx="2003" dy="1427" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="2400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n_user" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" value="1. User Enters Prompt" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n_router" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="Router Agent&#xa;(Identify Intent)" vertex="1">
+          <mxGeometry height="80" width="240" x="700" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="n_planner" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Planner Agent&#xa;(Analyze &amp; Split Tasks)" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="n_plan_draft" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=2;dashed=1;" value="DRAFT&#xa;Agent asks: &#39;Is this plan correct?&#39;" vertex="1">
+          <mxGeometry height="70" width="240" x="700" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="n_plan_hitl" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" value="User Feedback (HITL)&#xa;[Must Approve to Finalize JSON]" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="n_plan_json" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;strokeWidth=2;" value="OUTPUT: JSON PLAN" vertex="1">
+          <mxGeometry height="70" width="240" x="700" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="n_super" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=14;strokeWidth=3;" value="SUPERVISOR AGENT&#xa;(Workflow Orchestration)" vertex="1">
+          <mxGeometry height="70" width="280" x="680" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="n_memory" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Qdrant: conversation_memory&#xa;(Store task_id, subtask)" vertex="1">
+          <mxGeometry height="80" width="240" x="1060" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="n_gws_agent" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="GWS Agent" vertex="1">
+          <mxGeometry height="60" width="240" x="100" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="n_gws_draft" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=2;dashed=1;" value="DRAFT" vertex="1">
+          <mxGeometry height="60" width="240" x="100" y="1170" as="geometry" />
+        </mxCell>
+        <mxCell id="n_gws_hitl" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" value="User Feedback (HITL)" vertex="1">
+          <mxGeometry height="60" width="240" x="100" y="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="n_gws_mcp" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Google API MCP" vertex="1">
+          <mxGeometry height="60" width="240" x="100" y="1410" as="geometry" />
+        </mxCell>
+        <mxCell id="n_gws_out" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;strokeWidth=2;" value="OUTPUT JSON -&gt; Global State" vertex="1">
+          <mxGeometry height="60" width="240" x="100" y="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="n_rep_ana1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="SQL Agent (Data Extraction)" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="n_rep_sql" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Chart Visualizer (Draw Charts)" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="1170" as="geometry" />
+        </mxCell>
+        <mxCell id="n_rep_chart" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Analyst Agent Phase 2 (Synthesis)" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="n_rep_ana2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="QA Agent (Evaluate &amp; Validate Entire Report)" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="1410" as="geometry" />
+        </mxCell>
+        <mxCell id="n_rep_hitl" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" value="User Feedback (HITL)" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="n_rep_out" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;strokeWidth=2;" value="Complete all Tasks (Final Report)\n*(Note: Real UI updates incrementally through each node)*" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="1650" as="geometry" />
+        </mxCell>
+        <mxCell id="n_rep_sub" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="Propose&#xa;Sub-task" vertex="1">
+          <mxGeometry height="70" width="100" x="960" y="1650" as="geometry" />
+        </mxCell>
+        <mxCell id="n_schema" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Qdrant: schema_metadata" vertex="1">
+          <mxGeometry height="80" width="200" x="1020" y="1160" as="geometry" />
+        </mxCell>
+        <mxCell id="n_cache" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Qdrant: validated_reports" vertex="1">
+          <mxGeometry height="80" width="200" x="1020" y="1040" as="geometry" />
+        </mxCell>
+        <mxCell id="n_dash_sql" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Dashboard Architect + RAG&#xa;(Generate Blueprint JSON)" vertex="1">
+          <mxGeometry height="60" width="240" x="1300" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="n_dash_agent" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="SQL Agent &amp; Chart Filler&#xa;(Loop through sections for data &amp; config)" vertex="1">
+          <mxGeometry height="60" width="240" x="1300" y="1170" as="geometry" />
+        </mxCell>
+        <mxCell id="n_dash_draft" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=2;dashed=1;" value="Dashboard Assembler&#xa;(Call REST API to Create Draft Dashboard)" vertex="1">
+          <mxGeometry height="60" width="240" x="1300" y="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="n_dash_hitl" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" value="User Approve/Reject via UI&#xa;(HITL Review Layout &amp; Data)" vertex="1">
+          <mxGeometry height="60" width="240" x="1300" y="1410" as="geometry" />
+        </mxCell>
+        <mxCell id="n_dash_out" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;strokeWidth=2;" value="Publish Dashboard &amp; Update Vector DB&#xa;(Save as New Template)" vertex="1">
+          <mxGeometry height="60" width="240" x="1300" y="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="n_done" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=14;strokeWidth=3;" value="Report to Supervisor&#xa;(Mark Task as Done)" vertex="1">
+          <mxGeometry height="60" width="240" x="700" y="2200" as="geometry" />
+        </mxCell>
+        <mxCell id="e_top1" edge="1" parent="1" source="n_user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_router" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_top2" edge="1" parent="1" source="n_router" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_planner" value="Needs Processing">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_top3" edge="1" parent="1" source="n_planner" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_plan_draft" value="Generate Plan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_top4" edge="1" parent="1" source="n_plan_draft" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_plan_hitl" value="Display">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_top6" edge="1" parent="1" source="n_plan_hitl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#008000;fontColor=#008000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_plan_json" value="Approve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_top7" edge="1" parent="1" source="n_plan_json" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_super" value="Pass JSON">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_top5" edge="1" parent="1" source="n_plan_hitl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#FF0000;fontColor=#FF0000;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" target="n_planner" value="User Edits -&gt; Rework">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="620" />
+              <mxPoint x="620" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_mem1" edge="1" parent="1" source="n_planner" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontStyle=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="n_memory" value="Write Plan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mem2" edge="1" parent="1" source="n_super" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontStyle=1;exitX=1;exitY=0.5;entryX=0.5;entryY=1;" target="n_memory" value="Read Long-term Context">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1180" y="895" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_sl1" edge="1" parent="1" source="n_super" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0;exitY=0.5;entryX=0.5;entryY=0;" target="n_gws_agent" value="GWS Task">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="895" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_l1_1" edge="1" parent="1" source="n_gws_agent" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_gws_draft" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l1_2" edge="1" parent="1" source="n_gws_draft" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_gws_hitl" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l1_4" edge="1" parent="1" source="n_gws_hitl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#008000;fontColor=#008000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_gws_mcp" value="Approve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l1_5" edge="1" parent="1" source="n_gws_mcp" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_gws_out" value="Success">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l1_3" edge="1" parent="1" source="n_gws_hitl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#FF0000;fontColor=#FF0000;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" target="n_gws_agent" value="Reject">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="40" y="1320" />
+              <mxPoint x="40" y="1080" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_sl2" edge="1" parent="1" source="n_super" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_rep_ana1" value="Report Task">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l2_1" edge="1" parent="1" source="n_rep_ana1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_rep_sql" value="Data JSON">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l2_2" edge="1" parent="1" source="n_rep_sql" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;entryX=1;entryY=0.5;strokeColor=#0000FF;fontColor=#0000FF;strokeWidth=2;" target="n_super" value="Loop Back (Next Subtask)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="980" y="1200" />
+              <mxPoint x="980" y="895" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_super_to_analyst" edge="1" parent="1" source="n_super" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#008000;fontColor=#008000;strokeWidth=2;" target="n_rep_chart" value="All Tasks Done (Run Analyst)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="895" />
+              <mxPoint x="640" y="1320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_l2_3" edge="1" parent="1" source="n_rep_chart" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_rep_ana2" value="Comprehensive Report (Draft)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l2_4" edge="1" parent="1" source="n_rep_ana2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_rep_hitl" value="QA Review (Approved / Propose Subtask)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l2_6" edge="1" parent="1" source="n_rep_hitl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#008000;fontColor=#008000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_rep_out" value="Approve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l2_5" edge="1" parent="1" source="n_rep_hitl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#FF0000;fontColor=#FF0000;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" target="n_super" value="Reject -&gt; Approve New Subtask">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="1560" />
+              <mxPoint x="600" y="895" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_l2_7" edge="1" parent="1" source="n_rep_hitl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d6b656;fontColor=#d6b656;exitX=1;exitY=0.5;entryX=0.5;entryY=0;" target="n_rep_sub" value="Approve Sub-task">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1010" y="1560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_l2_8" edge="1" parent="1" source="n_rep_sub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#d6b656;fontColor=#d6b656;exitX=0.5;exitY=0;entryX=1;entryY=0.5;" target="n_super" value="Send Sub-task (New JSON)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1010" y="895" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_sc1" edge="1" parent="1" source="n_rep_ana1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontStyle=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="n_schema" value="Retrieve Structure">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ca1" edge="1" parent="1" source="n_rep_ana1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontStyle=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="n_cache" value="Find Old Reports">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ca2" edge="1" parent="1" source="n_rep_out" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontStyle=1;exitX=1;exitY=0.5;entryX=0.5;entryY=1;" target="n_cache" value="Save New Report">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1220" y="1685" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_sl3" edge="1" parent="1" source="n_super" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;entryX=0.5;entryY=0;" target="n_dash_sql" value="Dash Task">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1420" y="895" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_l3_1" edge="1" parent="1" source="n_dash_sql" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_dash_agent" value="Blueprint JSON">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l3_2" edge="1" parent="1" source="n_dash_agent" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_dash_draft" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l3_3" edge="1" parent="1" source="n_dash_draft" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_dash_hitl" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l3_5" edge="1" parent="1" source="n_dash_hitl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#008000;fontColor=#008000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_dash_out" value="Approve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l3_4" edge="1" parent="1" source="n_dash_hitl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#FF0000;fontColor=#FF0000;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" target="n_dash_agent" value="Reject">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1240" y="1440" />
+              <mxPoint x="1240" y="1200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_done1" edge="1" parent="1" source="n_gws_out" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_done" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="2150" />
+              <mxPoint x="820" y="2150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_done2" edge="1" parent="1" source="n_rep_out" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_done" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_done3" edge="1" parent="1" source="n_dash_out" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="n_done" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1420" y="2150" />
+              <mxPoint x="820" y="2150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_loop" edge="1" parent="1" source="n_done" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#b85450;fontColor=#b85450;fontStyle=1;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" target="n_super" value="Move to Next Task">
+          <mxGeometry relative="1" x="-0.0927" y="20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1550" y="2230" />
+              <mxPoint x="1550" y="895" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_dash_rag1" edge="1" parent="1" source="n_cache" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontStyle=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="n_dash_sql" value="Get Old Template">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dash_rag2" edge="1" parent="1" source="n_schema" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontStyle=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="n_dash_agent" value="Get Schema / SQL">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dash_rag3" edge="1" parent="1" source="n_dash_out" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontStyle=1;exitX=0;exitY=0.5;entryX=0.5;entryY=1;" target="n_cache" value="Save as Template">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1120" y="1560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

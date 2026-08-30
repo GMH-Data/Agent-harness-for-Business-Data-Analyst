@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "Scope": { "type": "string", "description": "Từ prompt của user hãy phân tích mục tiêu cuối cùng ngắn gọn" },
+    "branch": { "type": "boolean", "description": "true nếu yêu cầu cần lập kế hoạch chi tiết (truy vấn dữ liệu, phân tích, vẽ biểu đồ, tạo dashboard), false nếu chỉ là giao tiếp thông thường" },
+    "intent": { "type": "string", "description": "REPORT nếu cần phân tích ad-hoc (1 biểu đồ hoặc 1 báo cáo), DASHBOARD nếu cần tạo Superset Dashboard đa biểu đồ, DIRECT nếu trả lời trực tiếp không cần data" },
+    "output": { "type": "string", "description": "Nếu branch là false thì đưa ra câu trả lời trực tiếp cho user, nếu true thì đưa ra message loading" }
+  },
+  "required": ["Scope", "branch", "intent", "output"]
+}

@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "subtasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Số thứ tự"
+          },
+          "description": {
+            "type": "string",
+            "description": "Mô tả nhiệm vụ"
+          },
+          "Goal": {
+            "type": "string",
+            "description": "Lấy từ Scope của Router Agent ra"
+          },
+          "task scope": {
+            "type": "string",
+            "description": "Scope của task này để hướng tới goal"
+          }
+        },
+        "required": [
+          "id",
+          "description",
+          "Goal",
+          "task scope"
+        ]
+      }
+    }
+  },
+  "required": [
+    "subtasks"
+  ]
+}

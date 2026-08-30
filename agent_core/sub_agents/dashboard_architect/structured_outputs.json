@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "dashboard_name": { "type": "string", "description": "Tên Dashboard" },
+    "storyline": { "type": "string", "description": "Câu chuyện tổng quát Dashboard muốn kể" },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "section_id": { "type": "string", "description": "ID duy nhất của section (vd: row1_kpi)" },
+          "row": { "type": "integer", "description": "Số hàng (1-indexed)" },
+          "col_span": { "type": "integer", "description": "Chiếm bao nhiêu cột trên tổng 3 (1, 2, hoặc 3)" },
+          "goal": { "type": "string", "description": "Mục tiêu truyền tải cụ thể của section này" },
+          "suggested_chart_type": { "type": "string", "description": "Loại biểu đồ gợi ý (Big Number, Line, Bar, Pie, Heatmap, Table, etc.)" },
+          "data_scope": { "type": "string", "description": "Scope dữ liệu cần truy vấn cho section này (metrics, dimensions, timeframe)" }
+        },
+        "required": ["section_id", "row", "col_span", "goal", "suggested_chart_type", "data_scope"]
+      }
+    }
+  },
+  "required": ["dashboard_name", "storyline", "sections"]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "question": "So sánh cấu hình laptop Asus ROG và Dell XPS",
+    "expected_intent": "hardware_rag_search"
+  },
+  {
+    "id": 2,
+    "question": "Cho xin thông số CPU và pin của laptop Asus Zephyrus G14",
+    "expected_intent": "hardware_rag_search"
+  },
+  {
+    "id": 3,
+    "question": "Báo cáo thống kê lượt click người dùng ngày 2026-08-21",
+    "expected_intent": "bigquery_analytics"
+  },
+  {
+    "id": 4,
+    "question": "Thống kê danh sách các sự kiện marketing trong bảng fct_user_event_tracking ngày 2026-08-21",
+    "expected_intent": "bigquery_analytics"
+  },
+  {
+    "id": 5,
+    "question": "Lấy link dashboard marketing star schema trên Superset",
+    "expected_intent": "superset_dashboard"
+  },
+  {
+    "id": 6,
+    "question": "Cho tôi link xem biểu đồ cấu hình laptop",
+    "expected_intent": "superset_dashboard"
+  }
+]

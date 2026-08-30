@@ -1,0 +1,73 @@
+version: '3.8'
+
+x-airflow-common:
+  &airflow-common
+  build:
+    context: .
+    dockerfile: ./airflow/Dockerfile
+  environment:
+    &airflow-common-env
+    # Bật chế độ nhẹ nhất: Chạy tuần tự, không chạy song song
+    AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+    # Dùng SQLite nội bộ, bỏ hoàn toàn Postgres
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
+    AIRFLOW__CORE__LOGGING_LEVEL: INFO
+    # Ép Webserver chạy bằng đúng 1 worker (Giảm 50% RAM)
+    AIRFLOW__WEBSERVER__WORKERS: 1
+    # Giới hạn số lượng task chạy cùng lúc là 1
+    AIRFLOW__CORE__PARALLELISM: 1
+    AIRFLOW__CORE__DAG_CONCURRENCY: 1
+    AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG: 1
+    # Tăng thời gian quét file (giảm tải CPU)
+    AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: 60
+    
+    GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/Key/gcp_key.json
+    DBT_PROFILES_DIR: /opt/airflow/dbt
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./dbt:/opt/airflow/dbt
+    - ./Key:/opt/airflow/Key
+    - ./airflow/logs:/opt/airflow/logs
+    - airflow-db-volume:/opt/airflow
+  user: "50000:0"
+
+services:
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 400M
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+
+  airflow-init:
+    <<: *airflow-common
+    command: version
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: admin
+      _AIRFLOW_WWW_USER_PASSWORD: admin
+    user: "0:0"
+
+volumes:
+  airflow-db-volume:

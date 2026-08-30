@@ -1,0 +1,29 @@
+# Cấu hình MCP Toolbox cho toàn bộ hệ sinh thái Google Cloud (googleapis/mcp-toolbox)
+# Cho phép Agent kết nối linh hoạt tới nhiều loại Database và dịch vụ của Google.
+version: "1"
+servers:
+  # 1. Kết nối BigQuery (Data Warehouse / Analytics)
+  - name: google-bigquery-mcp
+    type: bigquery
+    project_id: laplaptech
+    dataset: laplaptech_marketing
+    description: "Công cụ MCP để Agent chạy SQL truy xuất số liệu kinh doanh lớn."
+    tools:
+      - name: query_marketing_data
+        description: "Truy vấn dữ liệu Analytics từ BigQuery."
+
+  # 2. Kết nối Cloud SQL (PostgreSQL/MySQL - Transactional Data)
+  - name: google-cloudsql-mcp
+    type: cloud_sql_postgres
+    project_id: laplaptech
+    instance: "us-central1:laplaptech-pg"
+    database: "business_ops"
+    description: "Công cụ MCP truy cập dữ liệu giao dịch realtime."
+    
+  # 3. Kết nối Google Spanner (Global Scalable Database)
+  - name: google-spanner-mcp
+    type: spanner
+    project_id: laplaptech
+    instance: "laplaptech-global"
+    database: "crm_data"
+    description: "Công cụ MCP truy cập dữ liệu CRM đa quốc gia."
