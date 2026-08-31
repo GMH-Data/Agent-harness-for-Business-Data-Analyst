@@ -75,10 +75,12 @@ This diagram illustrates the complete Phase 2 & 3 Agent Core logic. The system u
 
 ![Agent Workflow](docs/ERD/Final/agent_workflow.drawio.png)
 
-### 4.2. Hybrid RAG Vector Flow
-This diagram details the Semantic Search and Routing mechanism. When a user sends a query, the system first checks the `semantic_cache` in Qdrant to save LLM tokens. If it's a cache miss, the agent queries the `schema_metadata` vector collection to understand BigQuery tables before generating perfectly accurate SQL.
+### 4.2. Hybrid RAG Ingestion & Retrieval Flow
+This diagram details the Ingestion, Chunking, and Retrieval mechanism of our Agent RAG architecture:
+1. **Ingestion & Chunking Pipeline:** Reads dbt schema definitions (`schema.yml`), parses them, and chunks them at the table level (generating table summaries and full column definitions). These chunks are vectorized using Gemini (`gemini-embedding-2`) and stored in the `schema_metadata` collection in Qdrant.
+2. **Retrieval & Agent Execution:** When a query is received, the prompt vector searches `schema_metadata` to retrieve the top 3 most relevant table schemas, injecting them into the SQL Expert Agent context for error-free SQL generation on BigQuery. It also checks `validated_reports` for semantic caching.
 
-![Hybrid RAG Vector Flow](docs/ERD/Final/rag_vector_flow.drawio.png)
+![Hybrid RAG Ingestion & Retrieval Flow](docs/ERD/Final/rag_vector_flow.drawio.png)
 
 ### 4.3. Technical Achievements
 *   **Agent Core (The Intelligence Heart):**
