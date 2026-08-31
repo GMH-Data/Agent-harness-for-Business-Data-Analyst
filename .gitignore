@@ -23,3 +23,7 @@ google-cloud-sdk/
 airflow/logs/
 superset_home/
 qdrant_data/
+
+# Ignore all of docs except docs/ERD/
+docs/*
+!docs/ERD/
