@@ -1,79 +1,101 @@
 <mxfile host="Electron" modified="2024-01-01T00:00:00.000Z" agent="Mozilla/5.0" etag="etag_placeholder" version="21.6.8" type="device">
-  <diagram id="rag_flow" name="Hybrid RAG Flow">
-    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <diagram id="rag_flow" name="Hybrid RAG Ingestion & Retrieval Flow">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         
-        <!-- User Query Node -->
-        <mxCell id="user_query" value="User Query / Prompt" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="60" y="240" width="160" height="60" as="geometry" />
+        <!-- SECTION 1: INGESTION PIPELINE (Left Side) -->
+        <mxCell id="sec1_title" value="1. INGESTION &amp; CHUNKING PIPELINE (Schema Setup)" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=4;fontColor=#666666;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="400" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="dbt_yml" value="dbt schema.yml&#xa;(Gold Models Definition)" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="160" height="80" as="geometry" />
         </mxCell>
 
-        <!-- Router Node -->
-        <mxCell id="router" value="Intent Router&#xa;(LangGraph)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="280" y="220" width="140" height="100" as="geometry" />
+        <mxCell id="parser" value="YAML Parser&#xa;&amp; Schema Extractor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="160" height="60" as="geometry" />
         </mxCell>
 
-        <!-- Semantic Cache DB -->
-        <mxCell id="semantic_cache" value="Semantic Cache&#xa;(Qdrant Vector DB)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="290" y="60" width="120" height="80" as="geometry" />
+        <mxCell id="chunker" value="Table-level Chunking&#xa;- Search Text: Summary&#xa;- Payload: JSON DDL/Columns" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="60" y="320" width="160" height="70" as="geometry" />
         </mxCell>
 
-        <!-- Schema RAG DB -->
-        <mxCell id="schema_rag" value="Schema Metadata&#xa;(Qdrant Vector DB)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="540" y="60" width="120" height="80" as="geometry" />
+        <mxCell id="gemini_embed" value="Gemini Embedding API&#xa;(gemini-embedding-2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="60" y="440" width="160" height="60" as="geometry" />
         </mxCell>
 
-        <!-- SQL Generator Node -->
-        <mxCell id="sql_gen" value="SQL/Tool Generator&#xa;(LLM Agent)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="520" y="240" width="160" height="60" as="geometry" />
+        <mxCell id="qdrant_schema" value="schema_metadata&#xa;(Qdrant Vector DB)&#xa;[3072 Dimensions]" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="320" y="430" width="150" height="80" as="geometry" />
         </mxCell>
 
-        <!-- Superset / BigQuery -->
-        <mxCell id="tools" value="Execution Tools&#xa;(BigQuery / Superset)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="760" y="240" width="160" height="60" as="geometry" />
+        <!-- SECTION 2: RETRIEVAL & EXECUTION (Right Side) -->
+        <mxCell id="sec2_title" value="2. RETRIEVAL &amp; AGENT EXECUTION FLOW" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=4;fontColor=#666666;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="540" y="20" width="400" height="30" as="geometry" />
         </mxCell>
 
-        <!-- Final Synthesis -->
-        <mxCell id="synthesis" value="Hybrid Synthesis&#xa;&amp; Final Response" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="760" y="380" width="160" height="60" as="geometry" />
+        <mxCell id="user_query" value="User Natural Language Query&#xa;(e.g., 'Phân tích doanh thu laptop')" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="560" y="80" width="220" height="60" as="geometry" />
         </mxCell>
 
-        <!-- UI -->
-        <mxCell id="ui" value="React Dashboard UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
-          <mxGeometry x="520" y="380" width="160" height="60" as="geometry" />
+        <mxCell id="query_embed" value="Gemini Embedding API&#xa;(Vectorize Prompt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="560" y="190" width="220" height="60" as="geometry" />
         </mxCell>
 
-        <!-- Edges -->
-        <mxCell id="edge1" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="user_query" target="router">
+        <mxCell id="qdrant_validated" value="validated_reports&#xa;(Semantic Cache)&#xa;[Search Cache/Templates]" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="320" y="180" width="150" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rag_retrieve" value="Qdrant Vector Search&#xa;- Match Search Text&#xa;- Return Top 3 Schemas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="560" y="320" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sql_agent" value="SQL Expert Agent&#xa;(Context: Gemini Prompt +&#xa;Retrieved Gold Schemas)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="860" y="320" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bigquery" value="Google BigQuery&#xa;(Execute SQL query)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="890" y="430" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES -->
+        <!-- Ingestion Edges -->
+        <mxCell id="e_ingest1" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="dbt_yml" target="parser">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ingest2" value="Extract Gold Tables" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="parser" target="chunker">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ingest3" value="Generate Search Text" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="chunker" target="gemini_embed">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ingest4" value="Insert Vectors &amp; Payload" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="gemini_embed" target="qdrant_schema">
           <mxGeometry width="50" height="50" relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="edge2" value="Check Cache" style="endArrow=classic;html=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;dashed=1;" edge="1" parent="1" source="router" target="semantic_cache">
+        <!-- Retrieval Edges -->
+        <mxCell id="e_ret1" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="user_query" target="query_embed">
           <mxGeometry width="50" height="50" relative="1" as="geometry" />
         </mxCell>
-
-        <mxCell id="edge3" value="If Miss" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="router" target="sql_gen">
+        <mxCell id="e_ret2" value="1. Check Cache" style="endArrow=classic;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;dashed=1;" edge="1" parent="1" source="query_embed" target="qdrant_validated">
           <mxGeometry width="50" height="50" relative="1" as="geometry" />
         </mxCell>
-
-        <mxCell id="edge4" value="Retrieve Context" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" edge="1" parent="1" source="schema_rag" target="sql_gen">
+        <mxCell id="e_ret3" value="2. Cache Miss: Search Schema" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="query_embed" target="rag_retrieve">
           <mxGeometry width="50" height="50" relative="1" as="geometry" />
         </mxCell>
-
-        <mxCell id="edge5" value="Execute Query" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="sql_gen" target="tools">
+        <mxCell id="e_ret4" value="Query vector search" style="endArrow=classic;html=1;exitX=0;exitY=0.75;entryX=1;entryY=0.15;dashed=1;" edge="1" parent="1" source="rag_retrieve" target="qdrant_schema">
           <mxGeometry width="50" height="50" relative="1" as="geometry" />
         </mxCell>
-
-        <mxCell id="edge6" value="Raw Data/Charts" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="tools" target="synthesis">
+        <mxCell id="e_ret5" value="Return JSON schemas" style="endArrow=classic;html=1;exitX=1;exitY=0.85;entryX=0.25;entryY=1;dashed=1;" edge="1" parent="1" source="qdrant_schema" target="rag_retrieve">
           <mxGeometry width="50" height="50" relative="1" as="geometry" />
         </mxCell>
-
-        <mxCell id="edge7" value="Display" style="endArrow=classic;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="synthesis" target="ui">
+        <mxCell id="e_ret6" value="Inject schemas to context" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="rag_retrieve" target="sql_agent">
           <mxGeometry width="50" height="50" relative="1" as="geometry" />
         </mxCell>
-
+        <mxCell id="e_ret7" value="Generate &amp; Run SQL" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="sql_agent" target="bigquery">
+          <mxGeometry width="50" height="50" relative="1" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
