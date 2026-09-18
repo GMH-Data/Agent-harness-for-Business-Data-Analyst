@@ -1,0 +1,10 @@
+{
+  "Lang": {
+    "ENG": {
+      "Content": "In enterprise analytics, bridging non-technical stakeholders with cloud data warehouses poses a significant bottleneck. To address this, AI RISSER was engineered for LapLapTech as an end-to-end data platform and multi-agent AI ecosystem. We built an in-memory streaming pipeline bypassing staging to achieve **$0 storage costs**, processing over **750,000 log rows** (**~1,000 rows/day** growth) into BigQuery Medallion architecture across **11 compiled dbt models**. We deployed a LangGraph multi-agent backend on Google Cloud Run integrated with Qdrant Vector DB for schema RAG and a React 18 + Tailwind frontend. As a result, the platform translates natural language into accurate BigQuery SQL, automated reports, and dynamic Apache Superset dashboards in real-time."
+    },
+    "VN": {
+      "Content": "Doanh nghiệp gặp khó khăn khi kết nối dữ liệu kho đa tầng với người dùng phi kỹ thuật. Dự án AI RISSER cho LapLapTech xây dựng hệ sinh thái dữ liệu và đa tác vụ AI toàn diện. Chúng tôi thiết lập đường ống nạp dữ liệu nén trực tiếp trong RAM vào BigQuery đạt chi phí lưu trữ **0 USD**, xử lý hơn **750.000 dòng log** (tăng trưởng **~1.000 dòng/ngày**) với **11 mô hình dbt** Medallion. Backend AI LangGraph được triển khai trên Google Cloud Run kết hợp cơ sở dữ liệu vector Qdrant và giao diện React 18 + Tailwind. Kết quả, hệ thống chuyển đổi câu hỏi tự nhiên thành truy vấn SQL chính xác, tự động xuất báo cáo và tạo bảng điều khiển Apache Superset theo thời gian thực."
+    }
+  }
+}
